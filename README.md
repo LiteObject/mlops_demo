@@ -23,13 +23,44 @@ mlops_demo/
 │       └── dataset.py       # Data generation and loading utilities
 ├── tests/                   # Unit and integration tests
 ├── app.py                   # FastAPI application for model serving
-├── config.yml               # Configuration parameters
+├── config.yml               # Configuration parameters (paths, hyperparameters)
 ├── data.dvc                 # DVC configuration for data versioning
 ├── Dockerfile               # Container definition for reproducibility
 ├── main.py                  # Entry point for running the training pipeline
 ├── Makefile                 # Utility commands for build, test, and run
+├── pyproject.toml           # Python packaging and tool configuration
 └── requirements.txt         # Python dependencies
 ```
+
+## Quick Start
+
+```bash
+# Install dependencies
+make install
+
+# Install in development mode (editable)
+pip install -e .
+
+# Run training pipeline
+make train
+
+# Run tests
+make test
+
+# Start FastAPI server
+make serve
+
+# Build Docker image
+make docker-build
+```
+
+## CI/CD
+
+This project includes a GitHub Actions workflow ([.github/workflows/ci.yml](.github/workflows/ci.yml)) that runs on every push and pull request to `main`:
+
+- **Linting**: Checks code quality with flake8
+- **Testing**: Runs pytest with coverage reporting
+- **Coverage**: Uploads results to Codecov
 
 ## Key Components
 
