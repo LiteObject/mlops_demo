@@ -13,7 +13,6 @@ Example:
 """
 
 import logging
-import os
 from typing import Any
 import mlflow
 from mlflow import sklearn as mlflow_sklearn
@@ -21,18 +20,8 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from src.ml_project.utils import load_config
-
-# pylint: disable=duplicate-code
-try:
-    from src.ml_project.steps.ingest import ingest_data
-    from src.ml_project.steps.clean import clean_data
-except ImportError:
-    import sys
-
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
-    from src.ml_project.steps.ingest import ingest_data
-    from src.ml_project.steps.clean import clean_data
-# pylint: enable=duplicate-code
+from src.ml_project.steps.ingest import ingest_data
+from src.ml_project.steps.clean import clean_data
 
 
 # Configure logging

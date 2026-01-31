@@ -13,25 +13,15 @@ Example:
 """
 
 import logging
-import os
 from typing import Optional, cast, Any
 import mlflow
+from mlflow.exceptions import MlflowException
 from mlflow import sklearn as mlflow_sklearn
 import pandas as pd
 import numpy as np
 from src.ml_project.utils import load_config
-
-# pylint: disable=duplicate-code
-try:
-    from src.ml_project.steps.ingest import ingest_data
-    from src.ml_project.steps.clean import clean_data
-except ImportError:
-    import sys
-
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
-    from src.ml_project.steps.ingest import ingest_data
-    from src.ml_project.steps.clean import clean_data
-# pylint: enable=duplicate-code
+from src.ml_project.steps.ingest import ingest_data
+from src.ml_project.steps.clean import clean_data
 
 
 # Configure logging
@@ -86,8 +76,11 @@ class Predictor:
             logger.info("Found latest model URI: %s", model_uri)
             return model_uri
 
-        except Exception as e:  # pylint: disable=broad-exception-caught
+        except MlflowException as e:
             logger.error("Error finding latest model: %s", e)
+            raise e
+        except Exception as e:
+            logger.error("Unexpected error finding latest model: %s", e)
             raise e
 
     def predict(self, data: pd.DataFrame, model_uri: Optional[str] = None) -> np.ndarray:
