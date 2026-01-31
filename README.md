@@ -29,7 +29,8 @@ mlops_demo/
 ├── main.py                  # Entry point for running the training pipeline
 ├── Makefile                 # Utility commands for build, test, and run
 ├── pyproject.toml           # Python packaging and tool configuration
-└── requirements.txt         # Python dependencies
+├── requirements.txt         # Python dependencies
+└── .pre-commit-config.yaml  # Configuration for git hooks (linting/formatting)
 ```
 
 ## Quick Start
@@ -37,6 +38,9 @@ mlops_demo/
 ```bash
 # Install dependencies
 make install
+
+# Setup pre-commit hooks (runs checks before commit)
+pre-commit install
 
 # Install in development mode (editable)
 pip install -e .
@@ -72,6 +76,21 @@ The project includes a FastAPI model server.
         -H "Content-Type: application/json" \
         -d '{"age": 63, "sex": 1, "cp": 3, "trestbps": 145, "chol": 233, "fbs": 1, "restecg": 0, "thalach": 150, "exang": 0, "oldpeak": 2.3, "slope": 0, "ca": 0, "thal": 1}'
    ```
+
+## Development & Quality Assurance
+
+### Pre-commit Hooks
+This project uses `pre-commit` to ensure code quality. Before every commit, the following checks run automatically:
+- **Black**: Formats code to standard style.
+- **Pylint**: Checks for static errors (scoped to `src/`, `tests/`, `app.py`, `main.py`).
+- **Standard checks**: Trailing whitespace, end-of-file fixers, YAML validation.
+
+If a hook fails (e.g., Black reformats a file), simply stage the changes (`git add .`) and commit again.
+
+### Data Version Control (DVC)
+Data is managed via DVC. The actual CSV files are not in Git.
+- **Pull data**: `dvc pull` (uses local storage in `dvc_storage/` by default).
+- **Track new data**: `dvc add data/` then `git add data.dvc`.
 
 ## CI/CD
 
