@@ -15,13 +15,14 @@ Example:
 import logging
 import os
 from typing import Any
-import yaml
 import mlflow
 from mlflow import sklearn as mlflow_sklearn
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from src.ml_project.utils import load_config
 
+# pylint: disable=duplicate-code
 try:
     from src.ml_project.steps.ingest import ingest_data
     from src.ml_project.steps.clean import clean_data
@@ -31,6 +32,8 @@ except ImportError:
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
     from src.ml_project.steps.ingest import ingest_data
     from src.ml_project.steps.clean import clean_data
+# pylint: enable=duplicate-code
+
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -49,21 +52,10 @@ class ModelTrainer:
         Args:
             config_path (str): Path to config file.
         """
-        self.config = self._load_config(config_path)
+        self.config = load_config(config_path)
         self.mlflow_config = self.config.get("mlflow", {})
         self.model_config = self.config.get("model", {})
         self.params = self.model_config.get("params", {})
-
-    def _load_config(self, path: str) -> dict:
-        """
-        Load YAML configuration.
-        """
-        try:
-            with open(path, "r", encoding="utf-8") as f:
-                return yaml.safe_load(f)
-        except Exception as e:
-            logger.error("Error loading config: %s", e)
-            raise e
 
     def train(self, x_train: pd.DataFrame, y_train: pd.Series) -> Any:
         """
