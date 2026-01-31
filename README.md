@@ -4,7 +4,26 @@ This is a demo project showcasing MLOps best practices, including modular pipeli
 
 ## What is MLOps?
 
-MLOps (Machine Learning Operations) is the intersection of Machine Learning, DevOps, and Data Engineering. It streamlines the lifecycle of ML models—from data preparation and training to deployment and monitoring—ensuring that AI systems are reliable, scalable, and reproducible in production.
+**MLOps (Machine Learning Operations)** brings together Machine Learning, DevOps, and Data Engineering to help teams build and maintain ML systems that actually work in production.
+
+### The Problem MLOps Solves
+
+Training a model in a notebook is easy. Keeping it running reliably in production is hard. MLOps addresses challenges like:
+
+- **"It worked on my machine"** → Containerization and environment management ensure consistency
+- **"Which model version is in production?"** → Experiment tracking and model registries provide visibility
+- **"The model's predictions are getting worse"** → Monitoring and automated retraining catch model drift
+- **"I can't reproduce last month's results"** → Version control for data, code, and models enables reproducibility
+
+### Core MLOps Practices
+
+| Practice | Purpose | Tools in This Project |
+|----------|---------|----------------------|
+| **Experiment Tracking** | Log parameters, metrics, and artifacts | MLflow |
+| **Data Versioning** | Track changes to datasets | DVC |
+| **CI/CD Pipelines** | Automate testing and deployment | GitHub Actions |
+| **Containerization** | Package code with dependencies | Docker |
+| **Model Serving** | Expose models via APIs | FastAPI |
 
 ## Project Structure
 
