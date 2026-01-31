@@ -2,6 +2,10 @@
 
 This is a demo project showcasing MLOps best practices, including modular pipeline structure, experiment tracking, and containerization.
 
+## What is MLOps?
+
+MLOps (Machine Learning Operations) is the intersection of Machine Learning, DevOps, and Data Engineering. It streamlines the lifecycle of ML models—from data preparation and training to deployment and monitoring—ensuring that AI systems are reliable, scalable, and reproducible in production.
+
 ## Project Structure
 
 The project follows a modular structure to separate concerns between data, source code, configuration, and environment definition.
