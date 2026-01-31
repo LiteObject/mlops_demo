@@ -14,7 +14,11 @@ from src.ml_project.steps.predict import Predictor, make_predictions
 @pytest.fixture
 def mock_config():
     """Mock configuration dictionary"""
-    return {"mlflow": {"experiment_name": "test_experiment", "tracking_uri": "mlruns"}}
+    return {
+        "data": {"raw_path": "data/raw", "train_file": "train.csv", "test_file": "test.csv"},
+        "model": {"algorithm": "random_forest", "params": {}},
+        "mlflow": {"experiment_name": "test_experiment", "tracking_uri": "mlruns"},
+    }
 
 
 class TestPredict:
