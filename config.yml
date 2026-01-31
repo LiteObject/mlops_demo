@@ -5,6 +5,7 @@ data:
   processed_path: data/processed
   train_file: train.csv
   test_file: test.csv
+  target_col: target
 
 model:
   algorithm: random_forest
