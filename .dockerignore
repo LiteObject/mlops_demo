@@ -1,0 +1,14 @@
+__pycache__
+*.pyc
+.git
+.gitignore
+.venv
+env
+docs
+tests
+notebooks
+dvc_storage
+.dvc
+data.dvc
+README.md
+Makefile

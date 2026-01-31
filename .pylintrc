@@ -1,4 +1,5 @@
 [MESSAGES CONTROL]
 disable=
     line-too-long,
-    missing-module-docstring
+    missing-module-docstring,
+    too-few-public-methods

@@ -18,10 +18,11 @@ COPY src/ src/
 COPY app.py .
 COPY main.py .
 COPY config.yml .
+COPY mlruns/ mlruns/
 
 # Set python path to include src
 ENV PYTHONPATH="/app/src"
 
 EXPOSE 8000
 
-CMD ["python", "main.py"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
