@@ -41,7 +41,7 @@ async def lifespan(_: FastAPI):
             # Warm up / Validate load
             # from mlflow import sklearn as mlflow_sklearn
             # metric_model["loaded_model"] = mlflow_sklearn.load_model(model_uri)
-    except Exception as e:  # pylint: disable=broad-exception-caught
+    except (FileNotFoundError, ValueError, OSError) as e:
         logger.error("Failed to load model: %s", e)
 
     yield
@@ -99,6 +99,6 @@ def predict(input_data: HeartDiseaseInput):
         predictions = predictor.predict(data, model_uri=uri)
 
         return {"prediction": int(predictions[0])}
-    except Exception as e:  # pylint: disable=broad-exception-caught
+    except (ValueError, TypeError, KeyError) as e:
         logger.error("Prediction failed: %s", e)
         raise HTTPException(status_code=500, detail=str(e)) from e
