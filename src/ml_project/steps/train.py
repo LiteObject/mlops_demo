@@ -120,6 +120,9 @@ class ModelTrainer:
             model (Any): Trained model.
             metrics (dict): Evaluation metrics.
         """
+        tracking_uri = self.mlflow_config.get("tracking_uri", "mlruns")
+        mlflow.set_tracking_uri(tracking_uri)
+
         experiment_name = self.mlflow_config.get("experiment_name", "default_experiment")
         mlflow.set_experiment(experiment_name)
 

@@ -19,7 +19,7 @@ mlops_demo/
 ├── src/                     # Source code package
 │   └── ml_project/
 │       ├── pipelines/       # Pipeline orchestration logic
-│       ├── steps/           # Individual pipeline steps (ingest, clean, train)
+│       ├── steps/           # Individual pipeline steps (ingest, clean, train, predict)
 │       └── dataset.py       # Data generation and loading utilities
 ├── tests/                   # Unit and integration tests
 ├── app.py                   # FastAPI application for model serving
@@ -54,18 +54,36 @@ make serve
 make docker-build
 ```
 
+## API Usage
+
+The project includes a FastAPI model server.
+
+1. **Start the server**:
+   ```bash
+   make serve
+   ```
+
+2. **Access Swagger UI**:
+   Navigate to [http://localhost:8000/docs](http://localhost:8000/docs) to test the `predict` endpoint interactively.
+
+3. **Sample Request**:
+   ```bash
+   curl -X POST "http://localhost:8000/predict" \
+        -H "Content-Type: application/json" \
+        -d '{"age": 63, "sex": 1, "cp": 3, "trestbps": 145, "chol": 233, "fbs": 1, "restecg": 0, "thalach": 150, "exang": 0, "oldpeak": 2.3, "slope": 0, "ca": 0, "thal": 1}'
+   ```
+
 ## CI/CD
 
 This project includes a GitHub Actions workflow ([.github/workflows/ci.yml](.github/workflows/ci.yml)) that runs on every push and pull request to `main`:
 
-- **Linting**: Checks code quality with flake8
-- **Testing**: Runs pytest with coverage reporting
-- **Coverage**: Uploads results to Codecov
+- **Linting**: Checks code quality with Pylint
+- **Testing**: Runs pytest to verify pipeline steps and API functionality
 
 ## Key Components
 
 - **src/ml_project/**: Contains the core logic of the machine learning pipeline, structured as a Python package.
-- **steps/**: Modular functions for each stage of the pipeline (Ingest -> Clean -> Train).
+- **steps/**: Modular functions for each stage of the pipeline (Ingest -> Clean -> Train -> Predict).
 - **notebooks/**: A sandbox for data exploration that is kept separate from production code.
 - **Dockerfile**: Ensures the project runs in a consistent environment across different machines.
 - **mlruns/**: Stores experiment metrics and artifacts locally (can be configured for remote storage).

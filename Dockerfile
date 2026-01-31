@@ -20,7 +20,7 @@ COPY main.py .
 COPY config.yml .
 
 # Set python path to include src
-ENV PYTHONPATH="${PYTHONPATH}:/app/src"
+ENV PYTHONPATH="/app/src"
 
 EXPOSE 8000
 
